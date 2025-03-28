@@ -1,11 +1,13 @@
 import java.awt.*;
+import java.awt.event.*;
 
-public class Notepad extends Frame  
+public class Notepad extends Frame 
 {
     TextArea textArea;
 
     public Notepad() 
     {
+
         MenuBar mb = new MenuBar();
         Menu m1 = new Menu("File");
         Menu m2 = new Menu("Edit");
@@ -23,7 +25,7 @@ public class Notepad extends Frame
         MenuItem mi2 = new MenuItem("Save");
         MenuItem mi3 = new MenuItem("Save As");
         MenuItem mi4 = new MenuItem("Exit");
-        
+
         m1.add(mi1);
         m1.add(mi5);
         m1.add(mi2);
@@ -56,16 +58,25 @@ public class Notepad extends Frame
 
         setMenuBar(mb);
 
-        textArea = new TextArea();
-        add(textArea);
+        textArea = new TextArea("", 0, 0, TextArea.SCROLLBARS_BOTH);
+        setLayout(new BorderLayout());
+        add(textArea, BorderLayout.CENTER);
 
         setSize(600, 400);
+        setTitle("Notepad Clone");
         setVisible(true);
 
-       
+        addWindowListener(new WindowAdapter() 
+        {
+            public void windowClosing(WindowEvent e) 
+            {
+                dispose();
+            }
+        });
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         new Notepad();
     }
 }
