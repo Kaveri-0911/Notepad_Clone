@@ -186,7 +186,7 @@ public class Notepad extends Frame implements ActionListener
 
         if (src.equals("New")) 
         {
-            textArea.setText("");
+            textArea.setText(" ");
         } 
         else if (src.equals("Open")) 
         {
