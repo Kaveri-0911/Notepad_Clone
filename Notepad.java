@@ -1,15 +1,19 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import javax.swing.*;
+
 
 public class Notepad extends Frame implements ActionListener 
 {
-    TextArea textArea;
+    JTextArea textArea;
+    JScrollPane scrollPane;
     String clipboard = "";
     int fontSize = 16;
     String selectedFont = "Arial";
     int selectedStyle = Font.PLAIN;
     String path = null;
+    boolean isWordWrap = false;
 
     Dialog d;
     Label fontLabel, styleLabel, sizeLabel;
@@ -68,15 +72,19 @@ public class Notepad extends Frame implements ActionListener
 
         setMenuBar(mb);
 
-        textArea = new TextArea("", 0, 0, TextArea.SCROLLBARS_BOTH);
+        textArea = new JTextArea();
         setLayout(new BorderLayout());
         textArea.setFont(new Font("Arial", Font.PLAIN, fontSize));
         add(textArea, BorderLayout.CENTER);
 
+        scrollPane = new JScrollPane(textArea);
+        add(scrollPane, BorderLayout.CENTER);
+        
         setSize(600, 600);
         setTitle("Notepad Clone");
         setVisible(true);
 
+        
         addWindowListener(new WindowAdapter() 
         {
             public void windowClosing(WindowEvent e) 
@@ -113,6 +121,14 @@ public class Notepad extends Frame implements ActionListener
                     {
                         pasteText(); 
                     }
+                    else if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_EQUALS)
+                    {
+                        zoomIn();
+                    }
+                    else if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_MINUS )
+                    {
+                        zoomOut();
+                    }
                 }
             }
         });
@@ -147,6 +163,8 @@ public class Notepad extends Frame implements ActionListener
         fontList.add("Courier New");
         fontList.add("Verdana");
         fontList.add("Tahoma");
+        fontList.add("Curlz MT");
+        fontList.add("Showcard Gothic");
 
         styleList = new List();
         styleList.add("Regular");
@@ -239,12 +257,25 @@ public class Notepad extends Frame implements ActionListener
         else if (src.equals("OK")) 
         {
             applyFont();
+
             d.setVisible(false);
         } 
         else if (src.equals("Cancel")) 
         {
             d.setVisible(false);
         }
+        else if (src.equals("Word Wrap"));
+        {
+            wrapWord();
+        }
+    }
+
+    private void wrapWord()
+    {
+        isWordWrap = !isWordWrap;
+        textArea.setLineWrap(isWordWrap);
+        textArea.setWrapStyleWord(isWordWrap);
+
     }
 
     private void applyFont() 
@@ -267,7 +298,7 @@ public class Notepad extends Frame implements ActionListener
         }
         textArea.setFont(new Font(selectedFont, selectedStyle, fontSize));
     }
-
+   
     private void zoomIn() 
     {
         fontSize += 2;
