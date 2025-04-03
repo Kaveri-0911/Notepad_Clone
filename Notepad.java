@@ -254,11 +254,14 @@ public class Notepad extends Frame implements ActionListener
         } 
         else if (src.equals("Zoom In")) 
         {
+            wrapWord();
             zoomIn();
             wrapWord();
         } 
         else if (src.equals("Zoom Out")) 
         {
+            
+            wrapWord();
             zoomOut();
             wrapWord();
         } 
