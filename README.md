@@ -28,6 +28,7 @@ This project is a simple notepad clone built using Java's AWT (Abstract Window T
 - **💻 User Interface:**
   - 🗂️ Menu Bar with File, Edit, Format, View, and Help sections
   - 🖋️ Dialog window for font settings
+  - 🌙 Dark Mode for comfortable viewing.
   
 ## 📋 Prerequisites
 
@@ -58,6 +59,8 @@ To run this project, you need the following:
 - ⏪ Add undo and redo options.
 
 - 🎨 Improve UI with modern styling.
+
+
 
 
 

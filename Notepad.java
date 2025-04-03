@@ -67,8 +67,10 @@ public class Notepad extends Frame implements ActionListener
 
         MenuItem mi14 = new MenuItem("Zoom In");
         MenuItem mi15 = new MenuItem("Zoom Out");
+        MenuItem mi16 = new MenuItem("Dark Mode");
         m4.add(mi14);
         m4.add(mi15);
+        m4.add(mi16);
 
         setMenuBar(mb);
 
@@ -148,6 +150,7 @@ public class Notepad extends Frame implements ActionListener
         mi13.addActionListener(this);
         mi14.addActionListener(this);
         mi15.addActionListener(this);
+        mi16.addActionListener(this);
 
         d = new Dialog(this, "Font", true);
         d.setSize(400, 300);
@@ -237,10 +240,12 @@ public class Notepad extends Frame implements ActionListener
         else if (src.equals("Delete")) 
         {
             textArea.replaceRange("", textArea.getSelectionStart(), textArea.getSelectionEnd());
+            wrapWord();
         } 
         else if (src.equals("Select All")) 
         {
             textArea.selectAll();
+            wrapWord();
         } 
         else if (src.equals("Zoom In")) 
         {
@@ -264,11 +269,37 @@ public class Notepad extends Frame implements ActionListener
         {
             d.setVisible(false);
         }
-        else if (src.equals("Word Wrap"));
+        else if (src.equals("Word Wrap"))
         {
             wrapWord();
         }
+        else if (src.equals("Dark Mode")) 
+        {
+            darkMode();
+        }
+
     }
+
+    private boolean isDarkMode = false;
+
+private void darkMode() 
+{
+    isDarkMode = !isDarkMode;
+
+    if (isDarkMode) 
+    {
+        textArea.setBackground(Color.BLACK);
+        textArea.setForeground(Color.WHITE);
+        textArea.setCaretColor(Color.YELLOW);
+    } 
+    else 
+    {
+        textArea.setBackground(Color.WHITE);
+        textArea.setForeground(Color.BLACK);
+        textArea.setCaretColor(Color.BLACK);
+    }
+}
+
 
     private void wrapWord()
     {
@@ -303,6 +334,8 @@ public class Notepad extends Frame implements ActionListener
     {
         fontSize += 2;
         textArea.setFont(new Font(selectedFont, selectedStyle, fontSize));
+        wrapWord();
+
     }
 
     private void zoomOut() 
@@ -312,6 +345,7 @@ public class Notepad extends Frame implements ActionListener
             fontSize -= 2;
             textArea.setFont(new Font(selectedFont, selectedStyle, fontSize));
         }
+        wrapWord();
     }
 
     private void openFile()
@@ -382,6 +416,7 @@ public class Notepad extends Frame implements ActionListener
         {
             textArea.replaceRange("", textArea.getSelectionStart(), textArea.getSelectionEnd());
         }
+        wrapWord();
     }
 
     private void copyText() 
@@ -391,11 +426,13 @@ public class Notepad extends Frame implements ActionListener
         {
             clipboard = text;
         }
+        wrapWord();
     }
 
     private void pasteText() 
     {
         textArea.insert(clipboard, textArea.getCaretPosition());
+        wrapWord();
     }
 
     public static void main(String[] args) 
