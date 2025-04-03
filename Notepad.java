@@ -228,32 +228,39 @@ public class Notepad extends Frame implements ActionListener
         else if (src.equals("Cut")) 
         {
             cutText();
+            wrapWord();
         } 
         else if (src.equals("Copy")) 
         {
             copyText();
+            wrapWord();
         } 
         else if (src.equals("Paste")) 
         {
             pasteText();
+            wrapWord();
         } 
         else if (src.equals("Delete")) 
         {
+            wrapWord();
             textArea.replaceRange("", textArea.getSelectionStart(), textArea.getSelectionEnd());
             wrapWord();
         } 
         else if (src.equals("Select All")) 
         {
+            wrapWord();
             textArea.selectAll();
             wrapWord();
         } 
         else if (src.equals("Zoom In")) 
         {
             zoomIn();
+            wrapWord();
         } 
         else if (src.equals("Zoom Out")) 
         {
             zoomOut();
+            wrapWord();
         } 
         else if (src.equals("Font")) 
         {
@@ -279,6 +286,13 @@ public class Notepad extends Frame implements ActionListener
         }
 
     }
+    private void wrapWord()
+    {
+        isWordWrap = !isWordWrap;
+        textArea.setLineWrap(isWordWrap);
+        textArea.setWrapStyleWord(isWordWrap);
+
+    }
 
     private boolean isDarkMode = false;
 
@@ -299,15 +313,6 @@ private void darkMode()
         textArea.setCaretColor(Color.BLACK);
     }
 }
-
-
-    private void wrapWord()
-    {
-        isWordWrap = !isWordWrap;
-        textArea.setLineWrap(isWordWrap);
-        textArea.setWrapStyleWord(isWordWrap);
-
-    }
 
     private void applyFont() 
     {
@@ -334,7 +339,6 @@ private void darkMode()
     {
         fontSize += 2;
         textArea.setFont(new Font(selectedFont, selectedStyle, fontSize));
-        wrapWord();
 
     }
 
@@ -345,7 +349,6 @@ private void darkMode()
             fontSize -= 2;
             textArea.setFont(new Font(selectedFont, selectedStyle, fontSize));
         }
-        wrapWord();
     }
 
     private void openFile()
