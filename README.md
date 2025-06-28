@@ -40,7 +40,7 @@ To run this project, you need the following:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/notepad-clone-java.git
+https://github.com/Kaveri-0911/Notepad_Clone.git
 2.Compile and run the Notepad.java file:
 
 - javac Notepad.java
